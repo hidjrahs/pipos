@@ -20,11 +20,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('xss')->group(function () {
-    Route::post('/login', [AuthController::class, 'login']);
+// Route::middleware('xss')->group(function () {
+//     Route::post('/login', [AuthController::class, 'login']);
 
-    Route::middleware('auth:sanctum')->group(function () {
-        Route::get('/user', [AuthController::class, 'user']);
-        Route::get('/logout', [AuthController::class, 'logout']);
-    });
-});
+//     Route::middleware('auth:sanctum')->group(function () {
+//         Route::get('/user', [AuthController::class, 'user']);
+//         Route::get('/logout', [AuthController::class, 'logout']);
+//     });
+// });

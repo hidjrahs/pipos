@@ -52,6 +52,7 @@ Route::middleware('xss')->group(function () {
         Route::post('/produk-ajax', [ProdukController::class, 'ajax'])->name('produk.ajax');
         Route::get('/produk/id/{id}', [ProdukController::class, 'showById']);
         Route::post('/produk/cariproduk', [ProdukController::class, 'cariProduk']);
+        Route::get('/asd', [ProdukController::class, 'listProduk'])->name('produk.list');
 
         Route::resource('suplier', SuplierController::class);
         Route::post('/suplier-ajax', [SuplierController::class, 'ajax'])->name('suplier.ajax');
