@@ -236,4 +236,31 @@ class ProdukController extends Controller
             return new errorResource(['message' => 'Produk tidak tersedia', 'status' => 404]);
         }
     }
+
+    public function listProduk(Request $request)
+    {
+        $key = $request->term;
+        $qty = $request->qty;
+
+        try {
+            $produkQuery = Produk::query();
+
+            if ($request->filled('term')) {
+                $produkQuery->where('produk', 'like', '%' . $key . '%')->where('stok', '>', 1);
+            }
+
+            if ($request->filled('qty')) {
+                $produkQuery->where('stok', '>=', $qty);
+            }
+
+            $produk = $produkQuery->limit(20)->get();
+
+
+
+            return $produk;
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+            return new ErrorResource(['message' => 'Terjadi kesalahan dalam memproses permintaan', 'status' => 500]);
+        }
+    }
 }

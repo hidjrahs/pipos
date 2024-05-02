@@ -58,7 +58,11 @@
                          <div class="row">
                              <div class="col-sm-8">
                                  <label for="" class="col-form-label">Kode Produk</label>
-                                 <input type="text" id="member_item_cari" class="form-control"
+                                 <select name="NO_CONT" id="NO_CONT" class="form-control">
+                                    <!-- <option value=""></option> -->
+                                    <!-- <input type="text" name="NO_CONT" id="NO_CONT" class="form-control"> -->
+                                </select>
+                                 <input type="hidden" id="member_item_cari" class="form-control"
                                      placeholder="Kode Produk ...">
                              </div>
                              <div class="col-sm-4">

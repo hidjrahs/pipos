@@ -13,6 +13,36 @@
 <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
 
 <script>
+    $(document).ready(function() {
+        $('#NO_CONT').select2({
+            minimumInputLength: 3, // Set the minimum input length
+            ajax: {
+                // Implement your AJAX settings for data retrieval here
+                url: '{!! route('produk.list') !!}',
+                dataType: 'json',
+                processResults: function(data) {
+                    const arrs = data;
+                    return {
+                        results: arrs.map((arr, i) => ({
+                            id: arr.barcode,
+                            text: arr.produk,
+                            ...arr
+                        }))
+                    };
+                }
+            }
+        });
+        $('#NO_CONT').on('select2:select', function(e) {
+            var data = e.params.data;
+            const item = $('#member_item_cari').val(data.barcode);
+            const qty = $('#member_item_qty').val();
+
+            if (data.barcode !== '' && data.barcode !== null) {
+                getProdukInputToCart(data.barcode, qty);
+            }
+        })
+    });
+
     let itemsArray = [];
 
     myTable();
@@ -256,20 +286,20 @@
 
         });
 
-        // ----------- INPUT PRODUK / ITEM
-        $('#member_item_cari_form input').keypress(function(e) {
-            if (e.which === 13) {
-                e.preventDefault();
+        // // ----------- INPUT PRODUK / ITEM
+        // $('#member_item_cari_form input').keypress(function(e) {
+        //     if (e.which === 13) {
+        //         e.preventDefault();
 
-                const item = $('#member_item_cari').val();
-                const qty = $('#member_item_qty').val();
+        //         const item = $('#member_item_cari').val();
+        //         const qty = $('#member_item_qty').val();
 
-                if (item !== '' && item !== null) {
-                    getProdukInputToCart(item, qty);
-                }
+        //         if (item !== '' && item !== null) {
+        //             getProdukInputToCart(item, qty);
+        //         }
 
-            }
-        });
+        //     }
+        // });
 
         // =========== update produk qty items
         $(document).on('change', '.updateQty', function(e) {
